@@ -1,0 +1,33 @@
+{
+	"id": "bb9bb019-3ba4-4b10-8252-af084bd27e66",
+	"values": [
+		{
+			"key": "authJsonSchema",
+			"value": "{   \"type\": \"object\",\n    \"required\": [\n        \"id\",\n        \"username\",\n        \"token\"\n    ],\n    \"properties\": {\n        \"id\": {\n            \"type\": \"integer\"\n        },\n        \"username\": {\n            \"type\": \"string\"\n        },\n        \"email\": {\n            \"type\": \"string\"\n        },\n        \"firstName\": {\n            \"type\": \"string\"\n        },\n        \"lastName\": {\n            \"type\": \"string\"\n        },\n        \"gender\": {\n            \"type\": \"string\"\n        },\n        \"token\": {\n            \"type\": \"string\"\n        }\n    }\n}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "validResponseCode",
+			"value": "(statusCode) => {pm.test(\"Response statusCode is OK\", function(){\n    pm.response.to.have.status(statusCode);\n})}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "validResponseSchema",
+			"value": "(schema) => {pm.test(\"Response Schema is OK\", function(){\n    pm.response.to.have.jsonSchema(schema)\n})}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "validResponseMessage",
+			"value": "(response, field, message) => {pm.test(\"Response message is OK\", () => {\n    pm.expect(response).to.have.property(field);\n    pm.expect(response[field]).to.be.eql(message);\n})}",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2023-12-16T14:31:32.527Z",
+	"_postman_exported_using": "Postman/10.20.10"
+}

@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "5e19c784-d270-4c5d-9c38-697a4d48da3c",
+		"name": "API-test-automation",
+		"description": "This template aims to demonstrate the possibilities of using Postman as an API testing automation tool, making use of the different features that the application provides in the best possible way and showing this with practical and easy-to-understand examples.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17434438",
+		"_collection_link": "https://red-space-976451.postman.co/workspace/test-automation-postman-templat~4b549e92-fd76-4828-a0da-cd6947e4832c/collection/17434438-5e19c784-d270-4c5d-9c38-697a4d48da3c?action=share&source=collection_link&creator=17434438"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Validar geração de token com sucesso",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://dummyjson.com/auth/login",
+									"protocol": "https",
+									"host": [
+										"dummyjson",
+										"com"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Positive tests of the Auth route",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"eval(pm.globals.get(\"validResponseCode\"))(200);",
+									"eval(pm.globals.get(\"validResponseSchema\"))(JSON.parse(pm.globals.get(\"authJsonSchema\")));"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "Validar geração de token com credenciais inválidas",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"eval(pm.globals.get(\"validResponseCode\"))(400);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"eval(pm.globals.get(\"validResponseMessage\"))(response, \"message\", \"Invalid credentials\")"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"let body = JSON.parse(pm.request.body)\r",
+											"body.password = pm.variables.replaceIn(\"{{$guid}}\")\r",
+											"pm.request.body.update(JSON.stringify(body))"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://dummyjson.com/auth/login",
+									"protocol": "https",
+									"host": [
+										"dummyjson",
+										"com"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"let body = {",
+							"    mode: 'raw',",
+							"    raw: JSON.stringify({",
+							"        username: \"kminchelle\",",
+							"        password: \"0lelplR\"",
+							"    }),",
+							"    options: {",
+							"        raw: {",
+							"            language: 'json'",
+							"        }",
+							"    }",
+							"}",
+							"pm.request.body.update(body)"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
